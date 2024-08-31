@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import storyRoutes from "./routes/story.route";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +14,9 @@ app.use(cors());
 // Load environment variables
 dotenv.config();
 const MONGO_URL = process.env.MONGODB_URL;
+
+// Routes
+app.use("/api/stories", storyRoutes);
 
 async function main() {
   await mongoose.connect(MONGO_URL as string);

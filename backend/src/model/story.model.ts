@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const blogSchema = new mongoose.Schema({
+const storySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -31,3 +31,5 @@ const blogSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+export const Story = mongoose.model("Story", storySchema);
