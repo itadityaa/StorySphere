@@ -2,7 +2,6 @@ import express, { Express, Request, Response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import storyRoutes from "./routes/story.route";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -16,7 +15,11 @@ dotenv.config();
 const MONGO_URL = process.env.MONGODB_URL;
 
 // Routes
+import storyRoutes from "./routes/story.route";
+import commentRoutes from "./routes/comment.route";
+
 app.use("/api/stories", storyRoutes);
+app.use("/api/comments", commentRoutes);
 
 async function main() {
   await mongoose.connect(MONGO_URL as string);

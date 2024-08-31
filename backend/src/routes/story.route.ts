@@ -161,10 +161,11 @@
 
 // export default router;
 
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, Router } from "express";
 import { Story } from "../model/story.model";
+import { Comment } from "../model/comment.model";
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.use(express.json());
 
@@ -238,6 +239,10 @@ router.get(
       return; // Ensure nothing else runs after the response is sent
     }
 
+    const comment = await Comment.find({ storyId: id })
+      .populate("user", "username email")
+      .sort({ createdAt: -1 });
+
     res.status(200).json({ message: "Story retrieved successfully!", story });
   })
 );
@@ -273,6 +278,8 @@ router.delete(
       res.status(404).json({ message: "Story not found" });
       return; // Ensure nothing else runs after the response is sent
     }
+
+    await Comment.deleteMany({ storyId: id });
 
     res
       .status(200)
