@@ -17,9 +17,11 @@ const MONGO_URL = process.env.MONGODB_URL;
 // Routes
 import storyRoutes from "./routes/story.route";
 import commentRoutes from "./routes/comment.route";
+import authUserRoutes from "./routes/authUser.route";
 
 app.use("/api/stories", storyRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/auth", authUserRoutes);
 
 async function main() {
   await mongoose.connect(MONGO_URL as string);
