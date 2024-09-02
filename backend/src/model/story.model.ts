@@ -9,7 +9,7 @@ const storySchema = new mongoose.Schema({
     type: String,
   },
   content: {
-    type: String,
+    type: Object,
     required: true,
   },
   coverImage: {
@@ -20,7 +20,8 @@ const storySchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   rating: {

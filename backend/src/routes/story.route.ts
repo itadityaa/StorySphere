@@ -1,6 +1,9 @@
 import express, { Request, Response, NextFunction, Router } from "express";
 import { Story } from "../model/story.model";
 import { Comment } from "../model/comment.model";
+// import { verify } from "jsonwebtoken";
+import verifyToken from "../middleware/verifyToken";
+import isAdmin from "../middleware/isAdmin";
 
 const router: Router = express.Router();
 
@@ -16,12 +19,14 @@ const asyncHandler =
 // Create a new story
 router.post(
   "/create-story",
-  asyncHandler(async (req: Request, res: Response) => {
+  verifyToken,
+  isAdmin,
+  asyncHandler(async (req: any, res: Response) => {
     console.log(
       `Story data from the API: ${JSON.stringify(req.body, null, 2)}`
     );
 
-    const newStory = new Story({ ...req.body });
+    const newStory = new Story({ ...req.body, author: req.userId }); // Use  to add the author after Token implementation
     await newStory.save();
 
     res
@@ -89,6 +94,7 @@ router.get(
 // Update a story by ID
 router.put(
   "/update-story/:id",
+  verifyToken,
   asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     const updatedStory = await Story.findByIdAndUpdate(id, req.body, {
@@ -109,6 +115,7 @@ router.put(
 // Delete a story by ID
 router.delete(
   "/delete-story/:id",
+  verifyToken,
   asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
     const deletedStory = await Story.findByIdAndDelete(id);
