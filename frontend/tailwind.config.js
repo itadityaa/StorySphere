@@ -10,6 +10,9 @@ export default {
         // highlightSecondary: "#f4bbba",
         accentPrimary: "#e26d5c",
       },
+      fontFamily: {
+        montserrat: ["Inter", "sans-serif"],
+      },
     },
   },
   plugins: [],
