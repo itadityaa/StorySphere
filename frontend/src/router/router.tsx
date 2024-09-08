@@ -1,9 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom'
-import App from '../App';
-import Home from '../pages/home/Home';
-import AboutUs from '../pages/otherPages/AboutUs';
-import PrivacyPolicy from '../pages/otherPages/PrivacyPolicy';
-import ContactUs from '../pages/otherPages/ContactUs';
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import Home from "../pages/home/Home";
+import AboutUs from "../pages/otherPages/AboutUs";
+import PrivacyPolicy from "../pages/otherPages/PrivacyPolicy";
+import ContactUs from "../pages/otherPages/ContactUs";
+import SingleStory from "../pages/stories/SingleStory";
 
 const router = createBrowserRouter([
   {
@@ -12,21 +13,25 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <Home />,
       },
       {
         path: "/about",
-        element: <AboutUs />
+        element: <AboutUs />,
       },
       {
         path: "/privacypolicy",
-        element: <PrivacyPolicy />
+        element: <PrivacyPolicy />,
       },
       {
         path: "/contact",
-        element: <ContactUs />
-      }
-    ]
+        element: <ContactUs />,
+      },
+      {
+        path: "/stories/:id",
+        element: <SingleStory />,
+      },
+    ],
   },
 ]);
 

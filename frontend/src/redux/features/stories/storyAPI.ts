@@ -11,8 +11,11 @@ const storyApi = createApi({
       query: (search = "", category = "", location = "") =>
         `/stories?search=${search}&category=${category}&location=${location}`,
     }),
+    getSingleStoryById: builder.query({
+      query: (id) => `/stories/${id}`,
+    }),
   }),
 });
 
-export const { useGetStoriesQuery } = storyApi;
+export const { useGetStoriesQuery, useGetSingleStoryByIdQuery } = storyApi;
 export default storyApi;
