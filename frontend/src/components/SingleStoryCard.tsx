@@ -56,12 +56,16 @@ const SingleStoryCard: React.FC<StoryProps> = ({ story }) => {
           />
           <div className="flex flex-col justify-between mt-4">
             <div>
-              <span className="text-lg font-semibold">
-                Category: {category}
+              <span>
+                <span className="text-lg font-semibold">Category: </span>
+                {category}
               </span>
             </div>
             <div>
-              <span className="text-lg font-semibold">Rating: {rating}</span>
+              <span>
+                <span className="text-lg font-semibold">Rating:</span> {rating}{" "}
+                (based on X reviews)
+              </span>
             </div>
           </div>
         </div>

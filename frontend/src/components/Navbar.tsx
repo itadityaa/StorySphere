@@ -132,11 +132,11 @@ const Navbar = () => {
 
   return (
     <header className="py-6 bg-bgPrimary">
-      <nav className="flex justify-between px-10 w-screen">
+      <nav className="flex justify-between px-10 w-full">
         <a href="">
           <img src={logo} alt="logo" className="h-10" />
         </a>
-        <ul className="sm:flex hidden items-center gap-4 text-accentPrimary">
+        <ul className="sm:flex hidden items-center gap-6 text-accentPrimary">
           {navbarItems.map((item) => {
             return (
               <li key={item.name}>

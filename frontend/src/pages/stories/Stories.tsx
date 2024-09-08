@@ -34,7 +34,7 @@ const Stories = () => {
 
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {error.toString()}</div>}
-      <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+      <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
         {stories.map(
           (story: {
             _id: Key | null | undefined;

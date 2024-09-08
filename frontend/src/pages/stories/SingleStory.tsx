@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useGetSingleStoryByIdQuery } from "../../redux/features/stories/storyAPI";
 import SingleStoryCard from "../../components/SingleStoryCard";
 import CommentCard from "./comments/CommentCard";
+import RelatedStories from "./RelatedStories";
 
 const SingleStory = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const SingleStory = () => {
             <CommentCard comments={data.comments} />
           </section>
           <section className="lg:w-1/3 w-full">
-            <div>Related Blogs</div>
+            <RelatedStories />
           </section>
         </div>
       )}
