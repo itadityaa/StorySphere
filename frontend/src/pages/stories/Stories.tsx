@@ -52,7 +52,7 @@ const Stories = () => {
                   alt={story.title}
                   className="h-80 w-full"
                 />
-                <h2 className="text-lg font-semibold m-2 text-center">
+                <h2 className="text-lg font-light m-2 text-center">
                   {story.title}
                 </h2>
               </Link>

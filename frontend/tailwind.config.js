@@ -6,8 +6,9 @@ export default {
     extend: {
       colors: {
         bgPrimary: "#001d3d",
-        accentPrimary: "#e26d5c",
-        bgSecondary: "#caf0f8 ",
+        accentPrimary: "#F9F6EE",
+        bgSecondary: "#FFF8DC ",
+        accentSecondary: "#d05549",
       },
       fontFamily: {
         montserrat: ["Inter", "sans-serif"],
