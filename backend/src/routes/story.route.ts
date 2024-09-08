@@ -64,10 +64,7 @@ router.get(
       .populate("author", "email")
       .sort({ createdAt: -1 });
 
-    res.status(200).json({
-      message: "All posts retrieved successfully!",
-      stories,
-    });
+    res.status(200).json(stories);
   })
 );
 
