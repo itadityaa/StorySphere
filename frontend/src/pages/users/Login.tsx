@@ -17,7 +17,8 @@ const Login = () => {
       const response = await loginUser(userDetails).unwrap();
       console.log(response);
 
-      const { token, user } = response;
+      const { token, user, role } = response;
+      // console.log(response);
 
       alert(`Welcome back, ${user.userName}`);
       navigate("/");

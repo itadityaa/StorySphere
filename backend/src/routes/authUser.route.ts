@@ -50,7 +50,7 @@ router.post("/login", async (req: Request, res: Response) => {
     res.status(200).send({
       message: "User logged in successfully",
       token,
-      user: { userName: user.userName, email: user.email },
+      user: { userName: user.userName, email: user.email, role: user.role },
     });
   } catch (error: any) {
     console.error(`Failed to login a User: ${error}`);

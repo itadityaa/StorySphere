@@ -8,8 +8,7 @@ interface DecodedToken {
 
 const verifyToken = (req: any, res: any, next: any): void => {
   try {
-    const token: string = req.headers.authorization.split(" ")[1];
-    // const token: string = req.cookies.token; // Implement this while ceating the frontend
+    const token: string = req.cookies.token;
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
