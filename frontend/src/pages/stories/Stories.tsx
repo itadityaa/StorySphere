@@ -24,10 +24,10 @@ const Stories = () => {
     refetchOnMountOrArgChange: true, // Ensures re-fetching happens when query changes
   });
 
-  useEffect(() => {
-    // console.log(search); // Debug to ensure the search state is updating correctly
-    console.log(query); // Debug to ensure the query is updating correctly
-  }, [query]);
+  // useEffect(() => {
+  //   // console.log(search); // Debug to ensure the search state is updating correctly
+  //   console.log(query); // Debug to ensure the query is updating correctly
+  // }, [query]);
 
   return (
     <div className="mt-16">
@@ -37,8 +37,16 @@ const Stories = () => {
         handleSearchSubmit={handleSearchSubmit}
       />
 
-      {isLoading && <div>Loading...</div>}
-      {error && <div>Error: {error.toString()}</div>}
+      {isLoading && (
+        <div className="text-xl text-center mx-auto my-10 font-medium">
+          Loading...
+        </div>
+      )}
+      {error && (
+        <div className="text-xl text-center mx-auto my-10 font-medium">
+          Error: {error.toString()}
+        </div>
+      )}
       <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
         {stories.map(
           (story: {

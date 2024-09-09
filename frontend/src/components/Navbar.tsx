@@ -104,6 +104,7 @@ import logo from "../assets/logo-no-background.svg";
 import { NavLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoCloseSharp } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 
 const navbarItems = [
   {
@@ -126,6 +127,8 @@ const navbarItems = [
 
 const Navbar = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+  console.log(user);
   const toggleBurgerMenu = () => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
   };
