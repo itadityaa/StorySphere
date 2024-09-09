@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/features/auth/authAPI";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/features/auth/authSlice";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -8,6 +10,7 @@ const Login = () => {
   const [message, setMessage] = React.useState("");
   const [loginUser, { isLoading }] = useLoginMutation();
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -17,9 +20,8 @@ const Login = () => {
       const response = await loginUser(userDetails).unwrap();
       console.log(response);
 
-      const { token, user, role } = response;
-      // console.log(response);
-
+      const { token, user } = response;
+      dispatch(setUser({ user }));
       alert(`Welcome back, ${user.userName}`);
       navigate("/");
     } catch (error) {
