@@ -1,40 +1,45 @@
-import React, { Key, useState } from "react";
+import React, { Key, useState, useEffect } from "react";
 import SearchStory from "../../components/SearchStory";
 import { useGetStoriesQuery } from "../../redux/features/stories/storyAPI";
 import { Link } from "react-router-dom";
 
 const Stories = () => {
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
-  const [query, setQuery] = useState({ search: "", category: "" });
-
-  // Get stories from the API
-  const { data: stories = [], error, isLoading } = useGetStoriesQuery(query);
-  console.log(stories);
+  const [query, setQuery] = useState({ search: "" });
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.currentTarget.value);
+    setSearch(e.target.value);
   };
-  // const handleCategoryChange = (e: React.FormEvent<HTMLFormElement>) => {
-  //   setCategory(e.currentTarget.value);
-  // };
-  const handleSearchSubmit = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setQuery({ search, category });
+
+  const handleSearchSubmit = () => {
+    setQuery({ search });
   };
+
+  // Re-fetch stories when query changes
+  const {
+    data: stories = [],
+    error,
+    isLoading,
+  } = useGetStoriesQuery(query, {
+    refetchOnMountOrArgChange: true, // Ensures re-fetching happens when query changes
+  });
+
+  useEffect(() => {
+    // console.log(search); // Debug to ensure the search state is updating correctly
+    console.log(query); // Debug to ensure the query is updating correctly
+  }, [query]);
 
   return (
     <div className="mt-16">
       <SearchStory
         search={search}
         handleSearchChange={handleSearchChange}
-        // handleCategoryChange={handleCategoryChange}
         handleSearchSubmit={handleSearchSubmit}
       />
 
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {error.toString()}</div>}
-      <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
+      <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
         {stories.map(
           (story: {
             _id: Key | null | undefined;

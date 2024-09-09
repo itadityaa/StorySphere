@@ -5,6 +5,8 @@ import AboutUs from "../pages/otherPages/AboutUs";
 import PrivacyPolicy from "../pages/otherPages/PrivacyPolicy";
 import ContactUs from "../pages/otherPages/ContactUs";
 import SingleStory from "../pages/stories/SingleStory";
+import Login from "../pages/users/Login";
+import Register from "../pages/users/Register";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/stories/:id",
         element: <SingleStory />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

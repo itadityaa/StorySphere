@@ -150,10 +150,7 @@ router.get(
 
     const relatedStories = await Story.find(relatedQuery).limit(3);
 
-    res.status(200).json({
-      message: "Related stories retrieved successfully!",
-      relatedStories,
-    });
+    res.status(200).send(relatedStories);
   })
 );
 

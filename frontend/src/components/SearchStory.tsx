@@ -3,19 +3,17 @@ import React from "react";
 interface SearchStoryProps {
   search: string;
   handleSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleCategoryChange: () => void;
-  handleSearchSubmit: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleSearchSubmit: () => void;
 }
 
-const SearchStory = ({
+const SearchStory: React.FC<SearchStoryProps> = ({
   search,
   handleSearchChange,
-  // handleCategoryChange,
   handleSearchSubmit,
-}: SearchStoryProps) => {
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearchSubmit(e);
+}) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSearchSubmit();
     }
   };
 
@@ -26,10 +24,13 @@ const SearchStory = ({
         placeholder="Search Stories..."
         value={search}
         onChange={handleSearchChange}
-        onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyDown}
         className="w-5/6 px-4 py-2 mr-1 text-lg focus:outline-none focus:border focus:border-bgPrimary border-[#8faadc] bg-bgSecondary text-[#001d3d] rounded-md transition-all duration-300 ease-in-out focus:w-[90%]  placeholder:text-lg"
       />
-      <button className="w-1/6 px-4 py-2 ml-1 bg-bgPrimary text-bgSecondary rounded-md hover:bg-accentSecondary hover:shadow-lg transition-all duration-300 ease-in-out">
+      <button
+        onClick={handleSearchSubmit}
+        className="w-1/6 px-4 py-2 ml-1 bg-bgPrimary text-bgSecondary rounded-md hover:bg-accentSecondary hover:shadow-lg transition-all duration-300 ease-in-out"
+      >
         Search
       </button>
     </div>
