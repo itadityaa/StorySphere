@@ -8,6 +8,7 @@ import RelatedStories from "./RelatedStories";
 const SingleStory = () => {
   const { id } = useParams();
   const { data, error, isLoading } = useGetSingleStoryByIdQuery(id);
+  console.log(data);
   const story = data?.story;
 
   return (

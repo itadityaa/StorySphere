@@ -38,7 +38,6 @@ router.post("/login", async (req: Request, res: Response) => {
       return res.status(401).send({ message: "Invalid credentials" });
     }
 
-    // To-Do: Generate a JWT token and send it back to the client
     const token = await generateToken(user._id as mongoose.ObjectId);
     // console.log(`Token: ${token}`);
     res.cookie("token", token, {
@@ -50,7 +49,12 @@ router.post("/login", async (req: Request, res: Response) => {
     res.status(200).send({
       message: "User logged in successfully",
       token,
-      user: { userName: user.userName, email: user.email, role: user.role },
+      user: {
+        userName: user.userName,
+        email: user.email,
+        role: user.role,
+        _id: user._id,
+      },
     });
   } catch (error: any) {
     console.error(`Failed to login a User: ${error}`);

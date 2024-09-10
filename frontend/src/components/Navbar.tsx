@@ -1,8 +1,10 @@
 // import { useState } from "react";
 // import logo from "../assets/logo-no-background.svg";
-// import { NavLink } from "react-router-dom";
+// import { Link, NavLink } from "react-router-dom";
 // import { RxHamburgerMenu } from "react-icons/rx";
 // import { IoCloseSharp } from "react-icons/io5";
+// import { useSelector } from "react-redux";
+// import userLogo from "../assets/boy.png";
 
 // const navbarItems = [
 //   {
@@ -25,17 +27,18 @@
 
 // const Navbar = () => {
 //   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+//   const { user } = useSelector((state) => state.auth);
 //   const toggleBurgerMenu = () => {
 //     setIsBurgerMenuOpen(!isBurgerMenuOpen);
 //   };
 
 //   return (
 //     <header className="py-6 bg-bgPrimary">
-//       <nav className="flex justify-between px-10 w-screen">
-//         <a href="">
+//       <nav className="flex justify-between px-10 w-full">
+//         <a href="/">
 //           <img src={logo} alt="logo" className="h-10" />
 //         </a>
-//         <ul className="sm:flex hidden items-center gap-4 text-accentPrimary">
+//         <ul className="sm:flex hidden items-center gap-6 text-accentPrimary">
 //           {navbarItems.map((item) => {
 //             return (
 //               <li key={item.name}>
@@ -52,6 +55,35 @@
 //               </li>
 //             );
 //           })}
+
+//           {user && user.role === "user" ? (
+//             <li className="flex items-center gap-2">
+//               <img src={userLogo} alt="User Logo" className="size-8" />
+//               <button className="w-full text-accentSecondary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300">
+//                 Logout
+//               </button>
+//             </li>
+//           ) : (
+//             <li>
+//               <NavLink to="/login">Login</NavLink>
+//             </li>
+//           )}
+
+//           {user && user.role === "admin" ? (
+//             <li className="flex items-center gap-2">
+//               <img src={userLogo} alt="User Logo" className="size-8" />
+//               <Link to="/admin/dashboard">
+//                 <button className="w-full bg-accentSecondary text-bgPrimary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300">
+//                   Dashboard
+//                 </button>
+//               </Link>
+//             </li>
+//           ) : (
+//             <li>
+//               <NavLink to="/login">Login</NavLink>
+//             </li>
+//           )}
+
 //           <li>
 //             <NavLink to="/login">Login</NavLink>
 //           </li>
@@ -69,8 +101,14 @@
 //           </button>
 //         </div>
 //       </nav>
-//       {isBurgerMenuOpen && (
-//         <ul className="fixed top-24 right-9 w-auto mx-3 h-auto pb-8 border-b rounded-md bg-bgPrimary text-accentPrimary shadow-sm z-50">
+//       <div
+//         className={`fixed top-24 right-9 w-auto mx-3 h-auto pb-8 border-b rounded-md bg-bgPrimary text-accentPrimary shadow-sm z-50 transition-all duration-500 ease-in-out transform ${
+//           isBurgerMenuOpen
+//             ? "translate-y-0 opacity-100"
+//             : "-translate-y-10 opacity-0 pointer-events-none"
+//         }`}
+//       >
+//         <ul>
 //           {navbarItems.map((item) => {
 //             return (
 //               <li key={item.name} className="px-4 mt-5">
@@ -92,7 +130,7 @@
 //             <NavLink to="/login">Login</NavLink>
 //           </li>
 //         </ul>
-//       )}
+//       </div>
 //     </header>
 //   );
 // };
@@ -101,10 +139,14 @@
 
 import { useState } from "react";
 import logo from "../assets/logo-no-background.svg";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoCloseSharp } from "react-icons/io5";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import userLogo from "../assets/boy.png";
+import { useLogoutMutation } from "../redux/features/auth/authAPI";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/features/auth/authSlice";
 
 const navbarItems = [
   {
@@ -128,9 +170,21 @@ const navbarItems = [
 const Navbar = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  console.log(user);
   const toggleBurgerMenu = () => {
     setIsBurgerMenuOpen(!isBurgerMenuOpen);
+  };
+
+  const dispatch = useDispatch();
+  const [logoutUser] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser().unwrap();
+      dispatch(logout());
+      alert("Logged out successfully");
+    } catch (error) {
+      alert(`An error occurred: ${error}`);
+    }
   };
 
   return (
@@ -140,25 +194,47 @@ const Navbar = () => {
           <img src={logo} alt="logo" className="h-10" />
         </a>
         <ul className="sm:flex hidden items-center gap-6 text-accentPrimary">
-          {navbarItems.map((item) => {
-            return (
-              <li key={item.name}>
-                <NavLink
-                  to={item.link}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-accentPrimary font-bold"
-                      : "text-accentPrimary"
-                  }
+          {navbarItems.map((item) => (
+            <li key={item.name}>
+              <NavLink
+                to={item.link}
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-accentPrimary font-bold"
+                    : "text-accentPrimary"
+                }
+              >
+                {item.name}
+              </NavLink>
+            </li>
+          ))}
+
+          {user ? (
+            <>
+              <li className="flex items-center gap-2">
+                <img src={userLogo} alt="User Logo" className="size-8" />
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-accentSecondary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300"
                 >
-                  {item.name}
-                </NavLink>
+                  Logout
+                </button>
               </li>
-            );
-          })}
-          <li>
-            <NavLink to="/login">Login</NavLink>
-          </li>
+              {user.role === "admin" && (
+                <li>
+                  <Link to="/admin/dashboard">
+                    <button className="w-full text-accentSecondary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300">
+                      Dashboard
+                    </button>
+                  </Link>
+                </li>
+              )}
+            </>
+          ) : (
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+          )}
         </ul>
         <div className="flex items-center sm:hidden">
           <button
@@ -173,16 +249,11 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
-      <div
-        className={`fixed top-24 right-9 w-auto mx-3 h-auto pb-8 border-b rounded-md bg-bgPrimary text-accentPrimary shadow-sm z-50 transition-all duration-500 ease-in-out transform ${
-          isBurgerMenuOpen
-            ? "translate-y-0 opacity-100"
-            : "-translate-y-10 opacity-0 pointer-events-none"
-        }`}
-      >
-        <ul>
-          {navbarItems.map((item) => {
-            return (
+
+      {isBurgerMenuOpen && (
+        <div className="fixed top-24 right-9 w-auto mx-3 h-auto pb-8 border-b rounded-md bg-bgPrimary text-accentPrimary shadow-sm z-50">
+          <ul>
+            {navbarItems.map((item) => (
               <li key={item.name} className="px-4 mt-5">
                 <NavLink
                   onClick={() => setIsBurgerMenuOpen(false)}
@@ -196,13 +267,15 @@ const Navbar = () => {
                   {item.name}
                 </NavLink>
               </li>
-            );
-          })}
-          <li className="px-4 mt-5">
-            <NavLink to="/login">Login</NavLink>
-          </li>
-        </ul>
-      </div>
+            ))}
+            {!user && (
+              <li className="px-4 mt-5">
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
     </header>
   );
 };

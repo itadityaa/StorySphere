@@ -77,14 +77,14 @@ router.get(
 
     if (!story) {
       res.status(404).json({ message: "Story not found" });
-      return; // Ensure nothing else runs after the response is sent
+      return;
     }
 
-    const comment = await Comment.find({ storyId: id })
+    const comments = await Comment.find({ storyId: id })
       .populate("user", "username email")
       .sort({ createdAt: -1 });
 
-    res.status(200).json({ message: "Story retrieved successfully!", story });
+    res.status(200).json({ story, comments });
   })
 );
 

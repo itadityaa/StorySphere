@@ -2,8 +2,12 @@ import React from "react";
 import userIcon from "../../../assets/user-svgrepo-com.svg";
 import { formattedDate } from "../../../utils/FormatDate";
 import PostAComment from "./PostAComment";
+import { useSelector } from "react-redux";
 
 const CommentCard = ({ comments }) => {
+  console.log(comments);
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <div className="my-6 ">
       <div>
@@ -35,7 +39,7 @@ const CommentCard = ({ comments }) => {
           </div>
         ) : (
           <div>
-            <p className="text-2xl font-semibold my-2"> Comments </p>
+            <p className="text-2xl font-semibold my-2">Comments</p>
             <span className="text-lg font-medium">No comments found!</span>
           </div>
         )}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../redux/features/auth/authAPI";
@@ -18,7 +19,6 @@ const Login = () => {
     const userDetails = { email, password };
     try {
       const response = await loginUser(userDetails).unwrap();
-      console.log(response);
 
       const { token, user } = response;
       dispatch(setUser({ user }));
