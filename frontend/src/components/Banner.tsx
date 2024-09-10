@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <div className="flex flex-col md:flex-row justify-between items-center md:gap-14 gap-8">
       <section className="md:w-1/2 w-full text-justify">
-        <h1 className="md:text-5xl text-3xl md:py-12 font-bold md:leading-tight text-left">
+        <h1 className="md:text-5xl text-3xl md:py-12 font-bold md:leading-tight text-left text-accentSecondary">
           Welcome to StorySphere – Your World of Endless Stories
         </h1>
         <p>

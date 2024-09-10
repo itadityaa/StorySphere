@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <div className="w-full mx-auto h-screen bg-bgPrimary">
-      <h2 className="text-2xl font-semibold mx-auto w-full text-accentPrimary text-center">
+      <h2 className="text-2xl font-semibold mx-auto w-full text-accentPrimary text-center pt-40">
         Login Here
       </h2>
       <form onSubmit={handleLogin} className="space-y-5 max-w-sm mx-auto pt-8">
@@ -59,7 +59,7 @@ const Login = () => {
         <button
           disabled={isLoading}
           type="submit"
-          className="w-full bg-accentSecondary text-bgPrimary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300"
+          className="button-utility-class"
         >
           Login
         </button>

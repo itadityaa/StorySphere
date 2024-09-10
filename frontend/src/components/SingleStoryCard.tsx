@@ -35,7 +35,9 @@ const SingleStoryCard: React.FC<StoryProps> = ({ story }) => {
     <>
       <div className="bg-bgPrimary">
         <div>
-          <h1 className="md:text-4xl text-3xl font-medium mb-4">{title}</h1>
+          <h1 className="md:text-4xl text-3xl font-medium mb-4 text-accentSecondary">
+            {title}
+          </h1>
           <p className="mb-4">
             {formattedDate(createdAt)} by{" "}
             <span className="font-semibold cursor-pointer">iKaminari</span>
@@ -57,14 +59,18 @@ const SingleStoryCard: React.FC<StoryProps> = ({ story }) => {
           <div className="flex flex-col justify-between mt-4">
             <div>
               <span>
-                <span className="text-lg font-semibold">Category: </span>
+                <span className="text-lg font-semibold text-accentSecondary">
+                  Category:{" "}
+                </span>
                 {category}
               </span>
             </div>
             <div>
               <span>
-                <span className="text-lg font-semibold">Rating:</span> {rating}{" "}
-                (based on X reviews)
+                <span className="text-lg font-semibold text-accentSecondary">
+                  Rating:
+                </span>{" "}
+                {rating} (based on X reviews)
               </span>
             </div>
           </div>

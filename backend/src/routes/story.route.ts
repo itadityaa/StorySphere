@@ -81,7 +81,7 @@ router.get(
     }
 
     const comments = await Comment.find({ storyId: id })
-      .populate("user", "username email")
+      .populate("user", "userName email")
       .sort({ createdAt: -1 });
 
     res.status(200).json({ story, comments });

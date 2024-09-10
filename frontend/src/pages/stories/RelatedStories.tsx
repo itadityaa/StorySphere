@@ -19,7 +19,9 @@ const RelatedStories = () => {
 
   return (
     <div>
-      <h3 className="text-2xl font-medium p-2">Related Stories</h3>
+      <h3 className="text-2xl font-medium p-2 text-accentSecondary">
+        Related Stories
+      </h3>
       {isLoading && <div>Loading...</div>}
       {error && <div>Error</div>}
       {relStories.length > 0 ? (

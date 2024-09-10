@@ -39,7 +39,9 @@ const PostAComment = () => {
 
   return (
     <div className="mt-4">
-      <h3 className="text-lg font-medium mb-4">Leave a Comment</h3>
+      <h3 className="text-lg font-medium mb-4 text-accentSecondary">
+        Leave a Comment
+      </h3>
       <form onSubmit={handleSubmit}>
         <textarea
           name="comment"
@@ -50,10 +52,7 @@ const PostAComment = () => {
           cols={30}
           rows={5}
         />
-        <button
-          type="submit"
-          className="w-full bg-bgPrimary text-bgSecondary p-2 rounded-md mt-2 hover:bg-accentSecondary transition-all ease-in-out duration-300 hover:shadow-lg"
-        >
+        <button type="submit" className="button-utility-class">
           Post Comment
         </button>
       </form>
