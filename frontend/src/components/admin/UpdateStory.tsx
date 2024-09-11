@@ -3,10 +3,14 @@ import { useSelector } from "react-redux";
 import EditorJS from "@editorjs/editorjs";
 import Header from "@editorjs/header";
 import List from "@editorjs/list";
-import { usePostStoryMutation } from "../../redux/features/stories/storyAPI";
-import { useNavigate } from "react-router-dom";
+import {
+  useGetSingleStoryByIdQuery,
+  usePostStoryMutation,
+} from "../../redux/features/stories/storyAPI";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddPost: FC = () => {
+const UpdateStory = () => {
+  const { id } = useParams();
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [coverImg, setCoverImg] = useState<string>("");
@@ -17,54 +21,65 @@ const AddPost: FC = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const [postStory, isLoading] = usePostStoryMutation();
+  //   const [postStory, isLoading] = usePostStoryMutation();
 
-  const editorInstance = useRef<EditorJS | null>(null);
+  const {
+    data: story = {},
+    error,
+    isLoading,
+    refetch,
+  } = useGetSingleStoryByIdQuery(id);
+
+  console.log(story);
 
   useEffect(() => {
-    const editor = new EditorJS({
-      holder: "editorjs",
-      onReady: () => {
-        editorInstance.current = editor;
-      },
-      autofocus: true,
-      tools: {
-        header: {
-          class: Header,
-          inlineToolbar: true,
+    if (story.story) {
+      const editor = new EditorJS({
+        holder: "editorjs",
+        onReady: () => {
+          editorInstance.current = editor;
         },
-        list: {
-          class: List,
-          inlineToolbar: true,
-          config: {
-            defaultType: "unordered",
+        autofocus: true,
+        tools: {
+          header: {
+            class: Header,
+            inlineToolbar: true,
+          },
+          list: {
+            class: List,
+            inlineToolbar: true,
+            config: {
+              defaultType: "unordered",
+            },
           },
         },
-      },
-    });
+        data: story.story.content,
+      });
 
-    return () => {
-      if (editorInstance.current) {
-        editorInstance.current.destroy();
-        editorInstance.current = null;
-      }
-    };
+      return () => {
+        if (editorInstance.current) {
+          editorInstance.current.destroy();
+          editorInstance.current = null;
+        }
+      };
+    }
   }, []);
 
+  const editorInstance = useRef<EditorJS | null>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
       const content = await editorInstance.current?.save();
-      const body = {
-        title,
-        descripton: metaDescription,
+      const updatedBody = {
+        title: title || story.story.title,
+        descripton: metaDescription || story.story.descripton,
         content,
-        coverImg,
+        coverImg: coverImg || story.story.coverImg,
         category,
         author: user?._id,
-        rating,
+        rating: rating || story.story.rating,
       };
 
       const response = await postStory(body).unwrap();
@@ -95,7 +110,7 @@ const AddPost: FC = () => {
 
   return (
     <div className="md:p-4 p-2 text-accentPrimary">
-      <h2 className="text-xl font-medium">Create A New Story</h2>
+      <h2 className="text-xl font-medium">Modify Story</h2>
       <form className="mt-4" onSubmit={handleSubmit}>
         <div className="mb-4 flex flex-col md:flex-row justify-between">
           <label
@@ -109,7 +124,7 @@ const AddPost: FC = () => {
             name="title"
             id="title"
             placeholder="Title"
-            value={title}
+            defaultValue={story.story?.title}
             onChange={handleTitleChange}
             className="mt-1 p-2 w-full rounded-md focus:outline-none text-bgPrimary "
             required
@@ -152,7 +167,7 @@ const AddPost: FC = () => {
                   name="coverImg"
                   id="coverImg"
                   placeholder="Cover Image URL"
-                  value={coverImg}
+                  defaultValue={story.story?.coverImg}
                   onChange={(e) => setCoverImg(e.target.value)}
                   className="ml-2 p-2 w-full rounded-md focus:outline-none text-bgPrimary"
                   required
@@ -171,7 +186,7 @@ const AddPost: FC = () => {
                   name="category"
                   id="category"
                   placeholder="Anime/Manga/Novel"
-                  value={category}
+                  defaultValue={story.story?.category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="ml-2 p-2 w-full rounded-md focus:outline-none text-bgPrimary"
                   required
@@ -190,7 +205,7 @@ const AddPost: FC = () => {
                   name="metaDescription"
                   id="metaDescription"
                   placeholder="Any Story Description Goes Here"
-                  value={metaDescription}
+                  defaultValue={story.story?.description}
                   onChange={(e) => setMetaDescription(e.target.value)}
                   className="ml-2 p-2 w-full rounded-md focus:outline-none text-bgPrimary"
                   required
@@ -210,7 +225,7 @@ const AddPost: FC = () => {
                   id="rating"
                   min={0}
                   max={5}
-                  value={rating}
+                  value={story.story?.rating}
                   onChange={handleRatingChange}
                   className="ml-2 p-2 w-full rounded-md focus:outline-none text-bgPrimary"
                   required
@@ -235,16 +250,12 @@ const AddPost: FC = () => {
         {message && (
           <p className="text-accentSecondary text-center">{message}</p>
         )}
-        <button
-          type="submit"
-          className="button-utility-class"
-          // disabled={isLoading}
-        >
-          Create Story
+        <button type="submit" className="button-utility-class">
+          Update Story
         </button>
       </form>
     </div>
   );
 };
 
-export default AddPost;
+export default UpdateStory;

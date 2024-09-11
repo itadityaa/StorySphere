@@ -12,7 +12,7 @@ const storySchema = new mongoose.Schema({
     type: Object,
     required: true,
   },
-  coverImage: {
+  coverImg: {
     type: String,
   },
   category: {

@@ -24,8 +24,8 @@ const SingleStoryCard: React.FC<StoryProps> = ({ story }) => {
     content,
     coverImg,
     category,
-    rating,
     author,
+    rating,
     createdAt,
   } = story || {};
 

@@ -13,6 +13,7 @@ import AddPost from "../components/admin/AddPost";
 import ManageWebsite from "../components/admin/ManageWebsite";
 import ManageUser from "../components/admin/user/ManageUser";
 import PrivateRouter from "./PrivateRouter";
+import UpdateStory from "../components/admin/UpdateStory";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
           {
             path: "users",
             element: <ManageUser />,
+          },
+          {
+            path: "update-item/:id",
+            element: <UpdateStory />,
           },
         ],
       },

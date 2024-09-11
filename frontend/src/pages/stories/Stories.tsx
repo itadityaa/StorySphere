@@ -24,11 +24,6 @@ const Stories = () => {
     refetchOnMountOrArgChange: true, // Ensures re-fetching happens when query changes
   });
 
-  // useEffect(() => {
-  //   // console.log(search); // Debug to ensure the search state is updating correctly
-  //   console.log(query); // Debug to ensure the query is updating correctly
-  // }, [query]);
-
   return (
     <div className="mt-16">
       <SearchStory
