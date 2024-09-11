@@ -82,7 +82,7 @@ const Navbar = () => {
               </li>
               {user.role === "admin" && (
                 <li>
-                  <Link to="/admin/dashboard">
+                  <Link to="/dashboard">
                     <button className="w-full text-accentSecondary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300">
                       Dashboard
                     </button>
