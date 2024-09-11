@@ -107,8 +107,8 @@ const AddPost: FC = () => {
         <div className="mb-4">
           <div className="flex flex-col md:flex-row justify-between items-start gap-4 mt-2">
             {/* Left */}
-            <div className="md:w-[60%] w-full py-4 spacy-y-4">
-              <p className="text-xl font-medium">Content</p>
+            <div className="md:w-[60%] w-full py-4 space-y-4">
+              <p className="text-xl font-medium mb-4">Content</p>
               <div
                 id="editorjs"
                 className="border border-bgSecondary rounded-md"
