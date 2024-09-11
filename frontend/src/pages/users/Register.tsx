@@ -9,7 +9,7 @@ const Register = () => {
 
   return (
     <div className="w-full mx-auto h-screen bg-bgPrimary">
-      <h2 className="text-2xl font-semibold mx-auto w-full text-accentPrimary text-center">
+      <h2 className="text-2xl font-semibold mx-auto w-full text-center pt-40 text-accentSecondary">
         Register Here
       </h2>
       <form className="space-y-5 max-w-sm mx-auto pt-8">
@@ -38,11 +38,8 @@ const Register = () => {
           required
         />
         {message && <p className="text-accentSeconday">{message}</p>}
-        <button
-          type="submit"
-          className="w-full bg-accentSecondary text-bgPrimary py-2 rounded-sm hover:rounded-md hover:text-bgSecondary transition-all ease-in-out duration-300"
-        >
-          Login
+        <button type="submit" className="button-utility-class">
+          Register
         </button>
       </form>
       <p className="text-center text-accentSecondary p-5">

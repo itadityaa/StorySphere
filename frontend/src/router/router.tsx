@@ -7,6 +7,7 @@ import ContactUs from "../pages/otherPages/ContactUs";
 import SingleStory from "../pages/stories/SingleStory";
 import Login from "../pages/users/Login";
 import Register from "../pages/users/Register";
+import Dashboard from "../pages/users/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
       },
     ],
   },
