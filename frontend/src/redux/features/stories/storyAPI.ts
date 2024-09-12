@@ -26,11 +26,12 @@ const storyApi = createApi({
         body: newStory,
         credentials: "include",
       }),
+      invalidatesTags: ["Stories"],
     }),
     updateStory: builder.mutation({
       query: ({ id, ...updatedStory }) => ({
         url: `/stories/update-story/${id}`,
-        method: "PATCH",
+        method: "PUT",
         body: updatedStory,
         credentials: "include",
       }),

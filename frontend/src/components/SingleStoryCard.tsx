@@ -1,6 +1,7 @@
 import React from "react";
 import { formattedDate } from "../utils/FormatDate";
 import EditorJSHTML from "editorjs-html";
+import { useGetUserQuery } from "../redux/features/auth/authAPI";
 
 interface StoryProps {
   story: {
@@ -30,6 +31,9 @@ const SingleStoryCard: React.FC<StoryProps> = ({ story }) => {
   } = story || {};
 
   const htmlContent = editorJSHTML.parse(content).join(" ");
+  const { data, isLoading, isError } = useGetUserQuery();
+
+  const user = data?.users?.find((user) => user._id === author);
 
   return (
     <>
@@ -38,10 +42,14 @@ const SingleStoryCard: React.FC<StoryProps> = ({ story }) => {
           <h1 className="md:text-4xl text-3xl font-medium mb-4 text-accentSecondary">
             {title}
           </h1>
+
           <p className="mb-4">
             {formattedDate(createdAt)} by{" "}
-            <span className="font-semibold cursor-pointer">iKaminari</span>
+            <span className="font-semibold cursor-pointer">
+              {user ? user.userName : "Unknown"}
+            </span>
           </p>
+          <h3 className="">{description}</h3>
         </div>
         <div className="mb-4">
           <img

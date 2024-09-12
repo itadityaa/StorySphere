@@ -57,6 +57,7 @@ const AddPost: FC = () => {
     e.preventDefault();
     try {
       const content = await editorInstance.current?.save();
+      console.log(metaDescription);
       const body = {
         title,
         descripton: metaDescription,

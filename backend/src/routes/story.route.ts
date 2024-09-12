@@ -22,16 +22,16 @@ router.post(
   verifyToken,
   isAdmin,
   asyncHandler(async (req: any, res: Response) => {
-    console.log(
-      `Story data from the API: ${JSON.stringify(req.body, null, 2)}`
-    );
+    // console.log(
+    //   `Story data from the API: ${JSON.stringify(req.body, null, 2)}`
+    // );
 
-    const newStory = new Story({ ...req.body, author: req.userId }); // Use  to add the author after Token implementation
+    const newStory = new Story({ ...req.body, author: req.userId }); //
     await newStory.save();
 
     res
       .status(201)
-      .json({ message: "Story created successfully", data: req.body });
+      .send({ message: "Story created successfully", data: req.body });
   })
 );
 

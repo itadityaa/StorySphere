@@ -48,7 +48,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="py-6 bg-bgPrimary">
+    <header className="py-6 bg-bgPrimary w-full">
       <nav className="flex justify-between px-10 w-full">
         <a href="/">
           <img src={logo} alt="logo" className="h-10" />

@@ -7,6 +7,7 @@ const storySchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    // required: true,
   },
   content: {
     type: Object,

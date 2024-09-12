@@ -40,14 +40,16 @@ const RelatedStories = () => {
                 />
               </div>
               <div>
-                <h4 className="font-medium ">{story.title.substring(0, 30)}</h4>
-                <p>{story.description.substring(0, 50)}...</p>
+                <h4 className="font-medium ">
+                  {story?.title?.substring(0, 30)}
+                </h4>
+                <p>{story?.description?.substring(0, 50)}...</p>
               </div>
             </Link>
           ))}
         </div>
       ) : (
-        <p>No Related Stories Yet...</p>
+        <p className="p-2">No Related Stories Yet...</p>
       )}
     </div>
   );

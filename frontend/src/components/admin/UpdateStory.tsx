@@ -5,7 +5,7 @@ import Header from "@editorjs/header";
 import List from "@editorjs/list";
 import {
   useGetSingleStoryByIdQuery,
-  usePostStoryMutation,
+  useUpdateStoryMutation,
 } from "../../redux/features/stories/storyAPI";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -21,7 +21,7 @@ const UpdateStory = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  //   const [postStory, isLoading] = usePostStoryMutation();
+  const [updateStory] = useUpdateStoryMutation();
 
   const {
     data: story = {},
@@ -29,8 +29,6 @@ const UpdateStory = () => {
     isLoading,
     refetch,
   } = useGetSingleStoryByIdQuery(id);
-
-  console.log(story);
 
   useEffect(() => {
     if (story.story) {
@@ -81,14 +79,15 @@ const UpdateStory = () => {
         author: user?._id,
         rating: rating || story.story.rating,
       };
+      console.log(updatedBody);
 
-      const response = await postStory(body).unwrap();
+      const response = await updateStory({ id, ...updatedBody }).unwrap();
       console.log(response);
-      alert("Story created successfully");
+      alert("Story updated successfully");
       navigate(`/`);
     } catch (error) {
       setMessage("Something went wrong");
-      console.error(`${message}: ${error}`);
+      // console.log(error);
     }
   };
 

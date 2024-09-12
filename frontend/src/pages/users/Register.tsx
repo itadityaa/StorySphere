@@ -1,18 +1,43 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useRegisterMutation } from "../../redux/features/auth/authAPI";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
   const [userName, setUserName] = useState("");
+
+  const [registerUser, { isLoading }] = useRegisterMutation();
+  const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await registerUser({
+        userName,
+        email,
+        password,
+      }).unwrap();
+
+      alert("User registered successfully");
+      setEmail("");
+      setPassword("");
+      setUserName("");
+      navigate("/login");
+    } catch (error) {
+      console.error("Failed to register the user:", error);
+    }
+  };
 
   return (
     <div className="w-full mx-auto h-screen bg-bgPrimary">
       <h2 className="text-2xl font-semibold mx-auto w-full text-center pt-40 text-accentSecondary">
         Register Here
       </h2>
-      <form className="space-y-5 max-w-sm mx-auto pt-8">
+      <form
+        onSubmit={handleRegister}
+        className="space-y-5 max-w-sm mx-auto pt-8"
+      >
         <input
           type="username"
           value={userName}
@@ -37,7 +62,7 @@ const Register = () => {
           placeholder="Password"
           required
         />
-        {message && <p className="text-accentSeconday">{message}</p>}
+
         <button type="submit" className="button-utility-class">
           Register
         </button>

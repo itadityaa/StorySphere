@@ -80,7 +80,7 @@ router.post("/logout", async (req: Request, res: Response) => {
 // Get all users
 router.get("/users", async (req: Request, res: Response) => {
   try {
-    const users = await User.find({}, "id email role");
+    const users = await User.find({}, "id email role userName");
     const userCount = await User.countDocuments();
 
     res
