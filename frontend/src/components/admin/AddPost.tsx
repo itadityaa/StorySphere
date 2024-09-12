@@ -57,7 +57,6 @@ const AddPost: FC = () => {
     e.preventDefault();
     try {
       const content = await editorInstance.current?.save();
-      console.log(metaDescription);
       const body = {
         title,
         descripton: metaDescription,
@@ -68,8 +67,7 @@ const AddPost: FC = () => {
         rating,
       };
 
-      const response = await postStory(body).unwrap();
-      console.log(response);
+      await postStory(body).unwrap();
       alert("Story created successfully");
       navigate(`/`);
     } catch (error) {

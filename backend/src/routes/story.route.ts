@@ -22,13 +22,11 @@ router.post(
   verifyToken,
   isAdmin,
   asyncHandler(async (req: any, res: Response) => {
-    // console.log(
-    //   `Story data from the API: ${JSON.stringify(req.body, null, 2)}`
-    // );
-
-    const newStory = new Story({ ...req.body, author: req.userId }); //
+    const newStory = new Story({
+      ...req.body,
+      author: req.userId,
+    });
     await newStory.save();
-
     res
       .status(201)
       .send({ message: "Story created successfully", data: req.body });
