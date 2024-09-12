@@ -38,7 +38,7 @@ const Carousel = () => {
       >
         <SwiperSlide>
           <img
-            src="https://images.unsplash.com/photo-1543726969-a1da85a6d334?q=80&w=2736&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Story 1"
             className="w-full lg:h-[420px] sm:h-96 h-80"
           />
@@ -59,7 +59,7 @@ const Carousel = () => {
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="https://images.unsplash.com/photo-1695360373358-54bbf2edd0b7?q=80&w=2868&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://images.unsplash.com/photo-1515255384510-23e8b6a6ca3c?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Story 4"
             className="w-full lg:h-[420px] sm:h-96 h-80"
           />
